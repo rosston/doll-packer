@@ -1,28 +1,28 @@
 (ns doll-packer.core)
 
-(declare fill-handbag-internal)
+(declare pack-dolls-internal)
 
 (defrecord Doll [name weight value])
 
 (defmulti
   ^{:doc "Return the collection of dolls that maximizes value while fitting within specified weight."
     :arglists '([max-weight dolls])}
-  fill-handbag
+  pack-dolls
   (fn [max-weight dolls] (type dolls)))
 
-(defmethod fill-handbag clojure.lang.PersistentVector
+(defmethod pack-dolls clojure.lang.PersistentVector
   [max-weight dolls]
-  (fill-handbag-internal [] max-weight dolls))
+  (pack-dolls-internal [] max-weight dolls))
 
-(defmethod fill-handbag clojure.lang.PersistentList
+(defmethod pack-dolls clojure.lang.PersistentList
   [max-weight dolls]
-  (fill-handbag-internal '() max-weight dolls))
+  (pack-dolls-internal '() max-weight dolls))
 
-(defmethod fill-handbag clojure.lang.PersistentList$EmptyList
+(defmethod pack-dolls clojure.lang.PersistentList$EmptyList
   [max-weight dolls]
-  (fill-handbag-internal '() max-weight dolls))
+  (pack-dolls-internal '() max-weight dolls))
 
-(defn- fill-handbag-internal
+(defn- pack-dolls-internal
   [initial-val max-weight dolls]
   (loop [return-val initial-val
          my-max-weight max-weight
