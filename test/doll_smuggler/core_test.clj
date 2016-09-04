@@ -76,4 +76,10 @@
                           (->Doll "dorothy" 50 160)
                           (->Doll "candice" 153 200)
                           (->Doll "anthony" 13 35)
-                          (->Doll "luke" 9 150)])))))
+                          (->Doll "luke" 9 150)])))
+    (testing "should also work with a collection of maps"
+      (is (equal-enough? (fill-handbag 166 [{:name "luke", :weight 9, :value 150}
+                                            {:name "anthony", :weight 13, :value 35}
+                                            {:name "candice", :weight 153, :value 200}])
+                         [{:name "luke", :weight 9, :value 150}
+                          {:name "candice", :weight 153, :value 200}])))))
