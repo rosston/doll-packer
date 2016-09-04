@@ -28,7 +28,7 @@
       (is (= (fill-handbag 400 []) [])))
     (testing "should return empty vector when one doll is provided but weighs more than max-weight"
       (is (= (fill-handbag 3 [(->Doll "luke" 9 150)]) [])))
-    (testing "should return vector containgin highest value doll when two dolls are provided but one weighs more than max-weight"
+    (testing "should return vector containing highest value doll when two dolls are provided but one weighs more than max-weight"
       (let [dolls [(->Doll "anthony" 13 35)
                    (->Doll "luke" 9 150)]]
         (is (= (fill-handbag 10 dolls) [(->Doll "luke" 9 150)]))))
