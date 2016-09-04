@@ -5,4 +5,5 @@
             :url "http://unlicense.org/"}
   :dependencies [[org.clojure/clojure "1.8.0"]]
   :plugins [[jonase/eastwood "0.2.3"]
-            [lein-cljfmt "0.5.3"]])
+            [lein-cljfmt "0.5.3"]]
+  :profiles {:dev {:dependencies [[org.clojure/test.check "0.9.0"]]}})

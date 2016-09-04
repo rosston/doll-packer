@@ -1,6 +1,15 @@
 (ns doll-smuggler.core-test
   (:require [clojure.test :refer :all]
+            [clojure.test.check.generators :as gen]
+            [clojure.test.check.properties :as prop]
+            [clojure.test.check.clojure-test :refer [defspec]]
+            [clojure.set :refer [difference]]
             [doll-smuggler.core :refer :all]))
+
+(defn total-weight
+  "Get the total weight of a doll-containing collection"
+  [dolls]
+  (reduce + (map :weight dolls)))
 
 (defn sort-by-value
   "Sort a doll-containing collection by value, descending"
@@ -89,3 +98,46 @@
                                              {:name "candice", :weight 153, :value 200}))
                          '({:name "luke", :weight 9, :value 150}
                            {:name "candice", :weight 153, :value 200}))))))
+
+(defn can-fit-another
+  "Determine if the resulting collection can fit another doll without breaking the max weight."
+  [max-weight source-dolls packed-dolls]
+  (let [remaining-dolls (difference (set source-dolls) (set packed-dolls))]
+    (some (fn [x] (>= max-weight (total-weight (into [x] packed-dolls))))
+          remaining-dolls)))
+
+(def doll-gen
+  (gen/fmap (partial apply ->Doll)
+            (gen/tuple (gen/not-empty gen/string-alphanumeric)
+                       gen/nat
+                       gen/nat)))
+
+(defspec vector-returns-vector
+  100
+  (prop/for-all [v (gen/vector doll-gen)
+                 max gen/nat]
+                (= (type (fill-handbag max v)) (type []))))
+
+(defspec list-returns-list
+  100
+  (prop/for-all [l (gen/list doll-gen)
+                 max gen/nat]
+                (let [result (fill-handbag max l)]
+                  (or (= (type result) (type '()))
+                      (= (type result) (type '(1)))))))
+
+(defspec less-than-max
+  1000
+  (prop/for-all [v (gen/vector doll-gen)
+                 max gen/nat]
+                (>= max (total-weight (fill-handbag max v)))))
+
+;; Seems difficult to do a generated test that we've maximized the value of the
+;; dolls without re-implementing the function under test. So: test that, once
+;; we fill the handbag, it's not possible to add any other doll to the handbag
+;; without going over the max weight.
+(defspec max-value-ish
+  1000
+  (prop/for-all [v (gen/vector doll-gen)
+                 max gen/nat]
+                (not (can-fit-another max v (fill-handbag max v)))))
