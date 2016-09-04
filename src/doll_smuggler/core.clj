@@ -16,11 +16,11 @@
 
 (defmethod fill-handbag clojure.lang.PersistentList
   [max-weight dolls]
-  (fill-handbag-internal () max-weight dolls))
+  (fill-handbag-internal '() max-weight dolls))
 
 (defmethod fill-handbag clojure.lang.PersistentList$EmptyList
   [max-weight dolls]
-  (fill-handbag-internal () max-weight dolls))
+  (fill-handbag-internal '() max-weight dolls))
 
 (defn- fill-handbag-internal
   [initial-val max-weight dolls]
