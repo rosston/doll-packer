@@ -10,9 +10,6 @@
          my-dolls dolls]
     (case (count my-dolls)
       0 return-val
-      1 (if (<= (:weight (first my-dolls)) my-max-weight)
-          (into return-val my-dolls)
-          return-val)
       (let [sorted-dolls (reverse (sort-by :value my-dolls))
             first-doll (first sorted-dolls)
             first-doll-weight (:weight first-doll)]
