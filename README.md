@@ -13,7 +13,7 @@ more than that.
 
 ## Usage
 
-Assuming you have leiningen installed, run
+Assuming you have [leiningen](http://leiningen.org/) installed, run
 
 ```
 lein test
