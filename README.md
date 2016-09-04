@@ -21,6 +21,18 @@ lein test
 
 to ensure that our claims hold up.
 
+To use:
+
+```clojure
+(require '[doll-packer.core :as packer])
+(packer/pack-dolls 166 [(packer/->Doll "luke" 9 150)
+                        (packer/->Doll "anthony" 13 35)
+                        (packer/->Doll "candice" 153 200)])
+; =>
+; [#doll_packer.core.Doll{:name "candice", :weight 153, :value 200}
+;  #doll_packer.core.Doll{:name "luke", :weight 9, :value 150}]
+```
+
 ## License
 
 [Unlicense](http://unlicense.org/)
