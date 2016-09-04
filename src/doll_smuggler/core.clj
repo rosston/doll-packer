@@ -12,7 +12,6 @@
           first-doll (first sorted-dolls)
           first-doll-weight (:weight first-doll)]
       (if (<= first-doll-weight max-weight)
-        (into [] (concat [first-doll]
-                         (fill-handbag (- max-weight first-doll-weight)
-                                       (rest sorted-dolls))))
+        (into [first-doll] (fill-handbag (- max-weight first-doll-weight)
+                                         (rest sorted-dolls)))
         (fill-handbag max-weight (rest sorted-dolls))))))
