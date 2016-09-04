@@ -1,6 +1,6 @@
 (defproject doll-packer "0.1.0-SNAPSHOT"
-  :description "Solves the problem at https://github.com/micahalles/doll-smuggler"
-  :url "https://bitbucket.org/rosston/doll-smuggler"
+  :description "A smart and efficient packer of dolls for all your high-value dolls"
+  :url "https://github.com/rosston/doll-packer"
   :license {:name "Unlicense"
             :url "http://unlicense.org/"}
   :dependencies [[org.clojure/clojure "1.8.0"]]
