@@ -1,10 +1,10 @@
-(ns doll-smuggler.core-test
+(ns doll-packer.core-test
   (:require [clojure.test :refer :all]
             [clojure.test.check.generators :as gen]
             [clojure.test.check.properties :as prop]
             [clojure.test.check.clojure-test :refer [defspec]]
             [clojure.set :refer [difference]]
-            [doll-smuggler.core :refer :all]))
+            [doll-packer.core :refer :all]))
 
 (defn total-weight
   "Get the total weight of a doll-containing collection"

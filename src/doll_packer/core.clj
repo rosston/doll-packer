@@ -1,4 +1,4 @@
-(ns doll-smuggler.core)
+(ns doll-packer.core)
 
 (declare fill-handbag-internal)
 

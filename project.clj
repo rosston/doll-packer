@@ -1,4 +1,4 @@
-(defproject doll-smuggler "0.1.0-SNAPSHOT"
+(defproject doll-packer "0.1.0-SNAPSHOT"
   :description "Solves the problem at https://github.com/micahalles/doll-smuggler"
   :url "https://bitbucket.org/rosston/doll-smuggler"
   :license {:name "Unlicense"
