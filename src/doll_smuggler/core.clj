@@ -8,8 +8,8 @@
   (loop [return-val []
          my-max-weight max-weight
          my-dolls dolls]
-    (case (count my-dolls)
-      0 return-val
+    (if (= (count my-dolls) 0)
+      return-val
       (let [sorted-dolls (reverse (sort-by :value my-dolls))
             first-doll (first sorted-dolls)
             first-doll-weight (:weight first-doll)]
