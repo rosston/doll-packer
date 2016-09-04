@@ -82,4 +82,10 @@
                                             {:name "anthony", :weight 13, :value 35}
                                             {:name "candice", :weight 153, :value 200}])
                          [{:name "luke", :weight 9, :value 150}
-                          {:name "candice", :weight 153, :value 200}])))))
+                          {:name "candice", :weight 153, :value 200}])))
+    (testing "should also work with a list of maps"
+      (is (equal-enough? (fill-handbag 166 '({:name "luke", :weight 9, :value 150}
+                                             {:name "anthony", :weight 13, :value 35}
+                                             {:name "candice", :weight 153, :value 200}))
+                         '({:name "luke", :weight 9, :value 150}
+                           {:name "candice", :weight 153, :value 200}))))))
