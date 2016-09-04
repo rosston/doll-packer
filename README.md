@@ -37,14 +37,14 @@ To use:
                         {:name "anthony", :weight 13, :value 35}
                         {:name "candice", :weight 153, :value 200}])
 ; => [{:name "candice", :weight 153, :value 200}
-      {:name "luke", :weight 9, :value 150}]
+;     {:name "luke", :weight 9, :value 150}]
 
 ; Or maybe you'd like to use a list instead of a vector?
 (packer/pack-dolls 166 '({:name "luke", :weight 9, :value 150}
                          {:name "anthony", :weight 13, :value 35}
                          {:name "candice", :weight 153, :value 200}))
 ; => ({:name "luke", :weight 9, :value 150}
-      {:name "candice", :weight 153, :value 200})
+;     {:name "candice", :weight 153, :value 200})
 ```
 
 ## License
