@@ -38,19 +38,19 @@
     (testing "should return empty vector when one doll is provided but weighs more than max-weight"
       (is (= (pack-dolls 3 [(->Doll "luke" 9 150)]) [])))
     (testing "should return vector containing highest value doll when two dolls are provided but one weighs more than max-weight"
-      (let [dolls [(->Doll "anthony" 13 35)
-                   (->Doll "luke" 9 150)]]
-        (is (= (pack-dolls 10 dolls) [(->Doll "luke" 9 150)]))))
+      (is (= (pack-dolls 10 [(->Doll "anthony" 13 35)
+                             (->Doll "luke" 9 150)])
+             [(->Doll "luke" 9 150)])))
     (testing "should return empty vector when no single doll weighs less than max-weight"
-      (let [dolls [(->Doll "luke" 9 150)
-                   (->Doll "anthony" 13 35)]]
-        (is (= (pack-dolls 8 dolls) []))))
+      (is (= (pack-dolls 8 [(->Doll "luke" 9 150)
+                            (->Doll "anthony" 13 35)])
+             [])))
     (testing "should return most valuable set of dolls in simple case"
-      (let [dolls [(->Doll "luke" 9 150)
-                   (->Doll "anthony" 13 35)
-                   (->Doll "candice" 153 200)]]
-        (is (equal-enough? (pack-dolls 166 dolls) [(->Doll "luke" 9 150)
-                                                   (->Doll "candice" 153 200)]))))
+      (is (equal-enough? (pack-dolls 166 [(->Doll "luke" 9 150)
+                                          (->Doll "anthony" 13 35)
+                                          (->Doll "candice" 153 200)])
+                         [(->Doll "luke" 9 150)
+                          (->Doll "candice" 153 200)])))
     (testing "should return most valuable set of dolls in complex case (example test)"
       (is (equal-enough? (pack-dolls 400 [(->Doll "luke" 9 150)
                                           (->Doll "anthony" 13 35)
