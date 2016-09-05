@@ -4,6 +4,12 @@
 
 (defrecord Doll [name weight value])
 
+;; Type-based multimethod seems weird when there's defprotocol, but I really
+;; wanted the max-weight to be first to make the function easily partial-able.
+;; e.g.,
+;;   (let [pack-dolls-less-than-400 (partial pack-dolls 400)]
+;;     (pack-dolls-less-than-400 some-dolls)
+;;     (pack-dolls-less-than-400 some-other-dolls))
 (defmulti
   ^{:doc "Return the collection of dolls that maximizes value while fitting within specified weight."
     :arglists '([max-weight dolls])}
