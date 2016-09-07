@@ -97,7 +97,18 @@
                                            {:name "anthony", :weight 13, :value 35}
                                            {:name "candice", :weight 153, :value 200}))
                          '({:name "luke", :weight 9, :value 150}
-                           {:name "candice", :weight 153, :value 200}))))))
+                           {:name "candice", :weight 153, :value 200}))))
+    (testing "shouldn't pick most valuable doll if it results in a lower total value for the knapsack"
+      (let [dolls [(->Doll "should-be-included-1" 90 100)
+                   (->Doll "should-be-included-2" 90 90)
+                   (->Doll "should-be-included-3" 20 50)
+                   (->Doll "should-not-be-included-1" 200 110)
+                   (->Doll "should-not-be-included-2" 75 10)
+                   (->Doll "should-not-be-included-3" 20 10)]]
+        (is (equal-enough? (pack-dolls 200 dolls)
+                           [(->Doll "should-be-included-1" 90 100)
+                            (->Doll "should-be-included-2" 90 90)
+                            (->Doll "should-be-included-3" 20 50)]))))))
 
 (defn can-fit-another
   "Determine if the resulting collection can fit another doll without breaking the max weight."

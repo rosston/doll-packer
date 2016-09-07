@@ -28,14 +28,14 @@
   [max-weight dolls]
   (pack-dolls-internal '() max-weight dolls))
 
-(defn- pack-dolls-internal
-  [initial-val max-weight dolls]
+(defn- sort-and-recurse-packer
+  [sort-fn initial-val max-weight dolls]
   (loop [return-val initial-val
          my-max-weight max-weight
          my-dolls dolls]
     (if (= (count my-dolls) 0)
       return-val
-      (let [sorted-dolls (reverse (sort-by :value my-dolls))
+      (let [sorted-dolls (reverse (sort-by sort-fn my-dolls))
             first-doll (first sorted-dolls)
             first-doll-weight (:weight first-doll)]
         (if (<= first-doll-weight my-max-weight)
@@ -43,3 +43,20 @@
                  (- my-max-weight first-doll-weight)
                  (rest sorted-dolls))
           (recur return-val my-max-weight (rest sorted-dolls)))))))
+
+(def ^:private doll-packers
+  [(partial sort-and-recurse-packer :value)
+   (partial sort-and-recurse-packer (fn [doll] (/ (:value doll) (:weight doll))))])
+
+(defn- highest-value
+  "Gets the highest value doll-containing collection"
+  [collections]
+  (let [sum-value (fn [dolls] (reduce + (map :value dolls)))]
+    (reduce
+     (fn [result, current] (if (> (sum-value current) (sum-value result)) current result))
+     collections)))
+
+(defn- pack-dolls-internal
+  [initial-val max-weight dolls]
+  (highest-value
+   (map (fn [packer] (packer initial-val max-weight dolls)) doll-packers)))
