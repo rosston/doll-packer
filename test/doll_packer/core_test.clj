@@ -109,19 +109,19 @@
 (def doll-gen
   (gen/fmap (partial apply ->Doll)
             (gen/tuple (gen/not-empty gen/string-alphanumeric)
-                       gen/nat
-                       gen/nat)))
+                       gen/s-pos-int
+                       gen/s-pos-int)))
 
 (defspec vector-returns-vector
   100
   (prop/for-all [v (gen/vector doll-gen)
-                 max gen/nat]
+                 max gen/s-pos-int]
                 (= (type (pack-dolls max v)) (type []))))
 
 (defspec list-returns-list
   100
   (prop/for-all [l (gen/list doll-gen)
-                 max gen/nat]
+                 max gen/s-pos-int]
                 (let [result (pack-dolls max l)]
                   (or (= (type result) (type '()))
                       (= (type result) (type '(1)))))))
@@ -129,7 +129,7 @@
 (defspec less-than-max
   1000
   (prop/for-all [v (gen/vector doll-gen)
-                 max gen/nat]
+                 max gen/s-pos-int]
                 (>= max (total-weight (pack-dolls max v)))))
 
 ;; Seems difficult to do a generated test that we've maximized the value of the
@@ -139,5 +139,5 @@
 (defspec max-value-ish
   1000
   (prop/for-all [v (gen/vector doll-gen)
-                 max gen/nat]
+                 max gen/s-pos-int]
                 (not (can-fit-another max v (pack-dolls max v)))))
